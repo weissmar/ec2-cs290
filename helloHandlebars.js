@@ -13,7 +13,7 @@ app.get('/', function(req, res){
 
 function genContext(){
 	var stuffToDisplay = {};
-	stuffToDisplay.number = Math.rand();
+	stuffToDisplay.number = Math.random();
 	return stuffToDisplay;
 }
 
