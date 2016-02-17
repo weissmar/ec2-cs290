@@ -11,7 +11,7 @@ app.get('/',function(req,res){
 
 app.get('/random',function(req,res){
   res.type('text/plain');
-  res.send('A random number:' Math.random());
+  res.send('A random number:' + Math.random());
 });
 
 app.use(function(req,res){
