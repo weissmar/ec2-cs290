@@ -25,6 +25,6 @@ app.use('/form-results', function(req,res){
 	res.render('form-results', req.method, context);
 })
 
-app.listen(app.use('port'), function(){
-	console.log('Express started on http:localhost:' + app.use('port') + '; press Ctrl-C to terminate.');
+app.listen(app.get('port'), function(){
+	console.log('Express started on http:localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
