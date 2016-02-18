@@ -1,12 +1,12 @@
 {
-  "name": "hello-world",
+  "name": "get-post-checker",
   "version": "1.0.0",
-  "description": "Hello world with express and node.js",
-  "main": "app.js",
+  "description": "GET and POST Checker with express, express-handlebars, and node.js",
+  "main": "getPostChecker.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "OSU",
+  "author": "Rachel Weissman-Hohler",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.3",

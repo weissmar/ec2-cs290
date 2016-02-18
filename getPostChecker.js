@@ -1,3 +1,11 @@
+/*
+GET and POST Checker Assignment
+getPostChecker.js
+Author: Rachel Weissman-Hohler
+Date: 02/18/16
+CS290-400
+*/
+
 var express = require('express');
 
 var app = express();
@@ -9,7 +17,7 @@ app.use(bodyParser.json());
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 8000);
+app.set('port', 3403);
 
 app.get('/', function(req, res){
 	res.render('home');
