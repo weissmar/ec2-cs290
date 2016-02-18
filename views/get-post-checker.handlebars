@@ -1,0 +1,12 @@
+<h1>{{methodType}} Request Received</h1>
+<ul>
+	{{#each queryList}}
+		<li>{{this.name}}: {{this.value}}
+	{{/each}}
+</ul>
+<br />
+<ul>
+	{{#each bodyList}}
+		<li>{{this.name}}: {{this.value}}
+	{{/each}}
+</ul>
