@@ -11,18 +11,28 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', 3000);
 
-app.use('/', function(req, res){
+app.get('/', function(req, res){
 	res.render('home')
 });
 
-app.use('/form-results', function(req,res){
+app.get('/form-results', function(req,res){
 	var qParams = [];
 	for (var p in req.body){
 		qParams.push({'name':p, 'value':req.body[p]})
 	}
 	var context = {};
 	context.dataList = qParams;
-	res.render('form-results', req.method, context);
+	res.render('form-results', {methodType: 'GET'}, context);
+})
+
+app.post('/form-results', function(req,res){
+	var qParams = [];
+	for (var p in req.body){
+		qParams.push({'name':p, 'value':req.body[p]})
+	}
+	var context = {};
+	context.dataList = qParams;
+	res.render('form-results', {methodType: 'POST'}, context);
 })
 
 app.listen(app.get('port'), function(){
