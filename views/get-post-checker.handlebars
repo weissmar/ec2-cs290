@@ -1,13 +1,21 @@
 <h1>{{methodType}} Request Received</h1>
 <h3>Received in URL query string:</h3>
-<ul>
-	{{#each queryList}}
-		<li>{{this.name}}: {{this.value}}
-	{{/each}}
-</ul>
+{{#if queryList}}
+	<ul>
+		{{#each queryList}}
+			<li>{{this.name}}: {{this.value}}
+		{{/each}}
+	</ul>
+{{else}}
+	<p>No parameters received.</p>
+{{/if}}
 <h3>Received in request body:</h3>
-<ul>
-	{{#each bodyList}}
-		<li>{{this.name}}: {{this.value}}
-	{{/each}}
-</ul>
+{{#if bodyList}}
+	<ul>
+		{{#each bodyList}}
+			<li>{{this.name}}: {{this.value}}
+		{{/each}}
+	</ul>
+{{else}}
+	<p>No parameters received.</p>
+{{/if}}
