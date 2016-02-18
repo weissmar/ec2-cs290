@@ -17,13 +17,13 @@ app.get('/', function(req, res){
 
 app.get('/form-results', function(req,res){
 	var qParams = [];
-	for (var p in req.body){
-		qParams.push({'name':p, 'value':req.body[p]})
+	for (var p in req.query){
+		qParams.push({'name':p, 'value':req.query[p]})
 	}
 	var context = {};
 	context.dataList = qParams;
 	res.render('form-results', context);
-})
+});
 
 app.post('/form-results', function(req,res){
 	var qParams = [];
@@ -33,7 +33,7 @@ app.post('/form-results', function(req,res){
 	var context = {};
 	context.dataList = qParams;
 	res.render('form-results', context);
-})
+});
 
 app.listen(app.get('port'), function(){
 	console.log('Express started on http:localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
