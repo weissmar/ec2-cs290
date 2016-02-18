@@ -22,7 +22,7 @@ app.get('/form-results', function(req,res){
 	}
 	var context = {};
 	context.dataList = qParams;
-	res.render('form-results', {methodType: 'GET'}, context);
+	res.render('form-results', context);
 })
 
 app.post('/form-results', function(req,res){
@@ -32,7 +32,7 @@ app.post('/form-results', function(req,res){
 	}
 	var context = {};
 	context.dataList = qParams;
-	res.render('form-results', {methodType: 'POST'}, context);
+	res.render('form-results', context);
 })
 
 app.listen(app.get('port'), function(){
