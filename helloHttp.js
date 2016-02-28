@@ -20,9 +20,11 @@ app.get('/', function(req, res, next){
 	request('http://api.openweathermap.org/data/2.5/weather?q=lakeview,or&appid=37531e6c34f0f28fb2d989292cb1cabd', function(err, response, body){
 		if (!err && response.statusCode < 400){
 			context.lakeviewWeather = JSON.parse(body);
+			console.log(body);
 			request('http://api.openweathermap.org/data/2.5/weather?q=corvallis,or&appid=37531e6c34f0f28fb2d989292cb1cabd', function(err, response, body){
 				if (!err && response.statusCode < 400){
 					context.corvallisWeather = JSON.parse(body);
+					console.log(body);
 					res.render('home', context);
 				} else {
 					console.log(err);
