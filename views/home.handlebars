@@ -2,14 +2,12 @@
 
 <h2>Lakeview Weather</h2>
 <ul>
-	{{#each lakeviewWeather}}
-		<li>{{this.name}}: {{this.value}}
-	{{/each}}
+	<li>{{lakeviewWeather.main.temp}}
+	<li>{{lakeviewWeather.weather.main}}
 </ul>
 
 <h2>Corvallis Weather</h2>
 <ul>
-	{{#each corvallisWeather}}
-		<li>{{this.name}}: {{this.value}}
-	{{/each}}
+	<li>{{corvallisWeather.main.temp}}
+	<li>{{corvallisWeather.weather.main}}
 </ul>
