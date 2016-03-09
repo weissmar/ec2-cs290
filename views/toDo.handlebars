@@ -13,7 +13,7 @@
 <ul>
   {{#each toDo}}
   <li>
-    <h3>{{this.name}} in {{this.city}} when the temperature is at least {{this.minTemp}}</h3>
+    <h3 style="background:{{this.warmEnough}}">{{this.name}} in {{this.city}} when the temperature is at least {{this.minTemp}} degrees: It is warm enough? {{this.warmEnough}}.</h3>
     <form method="post">
       <input type="hidden" name="id" value="{{this.id}}">
       <input type="submit" name="Done" value="Mark as Done">
