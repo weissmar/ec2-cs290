@@ -458,6 +458,11 @@ app.get('/expandingFurther', function(req,res,next){
 	res.render('expandingFurther', context);
 });
 
+app.get('/about', function(req,res,next){
+	var context = {};
+	res.render('about', context);
+});
+
 app.get('/demo', function(req,res,next){
 	var context = {};
 	if (!req.session.name){

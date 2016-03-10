@@ -1,8 +1,9 @@
 <div class="page-header">
 	<h1>Expanding Further with Different Endpoints</h1>
 </div>
-<p>Now that we've gone through the full process of writing the necessary Handlebars and JavaScript files to use one API endpoint, we'll look at some additional endpoints.  I'll go over the parameters used for each endpoint's URI, as well as the data fields returned.
+<p>Now that we've gone through the full process of writing the necessary Handlebars and JavaScript files to use one API endpoint, we'll look at a couple of additional endpoints.  I'll go over the parameters used for each endpoint's URI, as well as the data fields returned.
 </p>
+<h2>The "Member Bio and Roles" Endpoint</h2>
 <p>Since we already know how to get the members of Congress for a given state and district, the next endpoint we'll cover will allow us to get some more information about these (or other) members.  This endpoint is "Member Bio and Roles".  The base URI is as follows:
 	</p>
 <pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/{member-id}[.response-format]?api-key={your-API-key}</pre>
@@ -19,7 +20,7 @@
 		<td>You can either use the id returned from a previous request, or you can go to the <a href="http://bioguide.congress.gov/biosearch/biosearch.asp">Biographical Directory of the United States Congress</a>, look up your desired member of Congress, and copy the id from the URL.</td>
 	</tr>
 </table>
-<p>As before, and with all further endpoints, you can enter the optional response format specifier and you must enter your API key.  (I won't mention this step in any of the following endpoints, but it does still apply.)  I'll go ahead and fill out an example request:
+<p>As before, and with all further endpoints, you can enter the optional response format specifier and you must enter your API key.  (I won't mention this step in the following endpoint, but it does still apply.)  I'll go ahead and fill out an example request:
 </p>
 <pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/B001278.json?api-key=yourAPIKey</pre>
 <p>If you go ahead and make this request (either by copy and pasting it into your browser, or by creating a request in your JavaScript file), you should get something similar to the following:</p>
@@ -265,3 +266,108 @@
 	</tr>
 </table>
 <p>Whew!  That's a ton of data!  This is one of the most useful endpoints for getting a better idea of what our representatives in Congress are doing while in office.  </p>
+<h2>The "Member Lists" Endpoint</h2>
+<p>Another endpoint that can be useful (especially if you don't want to look up the members of Congress state by state and district by district) is "Member Lists".  This endpoint returns a complete list of members of a given chamber of a given Congress.  The base URI is as follows:</p>
+<pre>
+http://api.nytimes.com/svc/politics/v3/us/legislative/congress/{congress-number}/{chamber}/members[.response-format]?[optional-params]&amp;api-key={your-API-key}
+</pre>
+ <p>The required parameters are pretty straight-forward, and then there are a couple of optional parameters:</p>
+ <table class="table table-bordered">
+	<tr>
+		<th>Variable</th>
+		<th>Description</th>
+		<th>Options</th>
+	</tr>
+	<tr>
+		<td>congress-number</td>
+		<td>The number of the Congress in which the members served.</td>
+		<td>Currently, the API supports Congress 102 through 114 for Senate requests, and Congress 80 through 114 for House requests.  This parameter is required.</td>
+	</tr>
+	<tr>
+		<td>chamber</td>
+		<td>The chamber of Congress in which the members served.</td>
+		<td>house, senate.  This parameter is required.</td>
+	</tr>
+	<tr>
+		<td>state</td>
+		<td>The state the members represented in Congress.</td>
+		<td>The two-letter state abreviation.  This parameter is optional (although it is required if you include the district).</td>
+	</tr>
+	<tr>
+		<td>district</td>
+		<td>The district the members represented in Congress.</td>
+		<td>The district number.  This parameter is optional.</td>
+	</tr>
+</table>
+<p>I'll fill out an example request:</p>
+<pre>
+http://api.nytimes.com/svc/politics/v3/us/legislative/congress/114/senate/members.json?&amp;api-key=yourAPIKey
+</pre>
+<p>If you make this request, you should receive something like the following:</p>
+<pre>
+<!-- HTML generated using hilite.me -->{
+	<span>status:</span> <span style="color: #062873; font-weight: bold">&quot;OK&quot;</span>,
+	<span>copyright:</span> <span style="color: #062873; font-weight: bold">&quot;Copyright (c) 2016 The New York Times Company. All Rights Reserved.&quot;</span>,
+	<span>results:</span> <span>[</span>
+		<span>{</span>
+			<span>congress:</span> <span style="color: #062873; font-weight: bold">&quot;114&quot;</span>,
+			<span>chamber:</span> <span style="color: #062873; font-weight: bold">&quot;Senate&quot;</span>,
+			<span>num_results:</span> <span style="color: #062873; font-weight: bold">&quot;100&quot;</span>,
+			<span>offset:</span> <span style="color: #062873; font-weight: bold">&quot;0&quot;</span>,
+			<span>members:</span> <span>[</span>
+				<span>{</span>
+					<span>id:</span> <span style="color: #062873; font-weight: bold">&quot;A000360&quot;</span>,
+					<span>thomas_id:</span> <span style="color: #062873; font-weight: bold">&quot;1695&quot;</span>,
+					<span>api_uri:</span> <span style="color: #062873; font-weight: bold">&quot;http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/A000360.json&quot;</span>,
+					<span>first_name:</span> <span style="color: #062873; font-weight: bold">&quot;Lamar&quot;</span>,
+					<span>middle_name:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+					<span>last_name:</span> <span style="color: #062873; font-weight: bold">&quot;Alexander&quot;</span>,
+					<span>party:</span> <span style="color: #062873; font-weight: bold">&quot;R&quot;</span>,
+					<span>twitter_account:</span> <span style="color: #062873; font-weight: bold">&quot;SenAlexander&quot;</span>,
+					<span>facebook_account:</span> <span style="color: #062873; font-weight: bold">&quot;senatorlamaralexander&quot;</span>,
+					<span>facebook_id:</span> <span style="color: #062873; font-weight: bold">&quot;89927603836&quot;</span>,
+					<span>url:</span> <span style="color: #062873; font-weight: bold">&quot;http://www.alexander.senate.gov&quot;</span>,
+					<span>rss_url:</span> <span style="color: #062873; font-weight: bold">&quot;http://www.alexander.senate.gov/public/?a=RSS.Feed&quot;</span>,
+					<span>domain:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+					<span>dw_nominate:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+					<span>ideal_point:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+					<span>seniority:</span> <span style="color: #062873; font-weight: bold">&quot;13&quot;</span>,
+					<span>next_election:</span> <span style="color: #062873; font-weight: bold">&quot;2014&quot;</span>,
+					<span>total_votes:</span> <span style="color: #062873; font-weight: bold">&quot;372&quot;</span>,
+					<span>missed_votes:</span> <span style="color: #062873; font-weight: bold">&quot;13&quot;</span>,
+					<span>total_present:</span> <span style="color: #062873; font-weight: bold">&quot;0&quot;</span>,
+					<span>state:</span> <span style="color: #062873; font-weight: bold">&quot;TN&quot;</span>,
+					<span>missed_votes_pct:</span> <span style="color: #062873; font-weight: bold">&quot;3.49&quot;</span>,
+					<span>votes_with_party_pct:</span> <span style="color: #062873; font-weight: bold">&quot;86.07&quot;</span>
+				}<span>,</span>
+				<span>...</span>
+			<span>]</span>
+		<span>}</span>
+	<span>]</span>
+<span>}</span>
+</pre>
+<p>There were more results in "members" that I have omitted, as they only included duplicate fields.  Taking a closer look at what we got back (fields that were described on <a href="makingARequest">a previous page</a> or above are omitted from the table):
+</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>total_votes</td>
+		<td>372</td>
+		<td>The number of roll call votes on record for the member during this Congress.</td>
+	</tr>
+	<tr>
+		<td>missed_votes</td>
+		<td>13</td>
+		<td>The number of votes that the member was eligible to vote in but did not during this Congress.</td>
+	</tr>
+	<tr>
+		<td>total_present</td>
+		<td>0</td>
+		<td>The number of votes in which the member voted as "present".</td>
+	</tr>
+</table>
+<p>As you can see, this endpoint doesn't have much information that isn't available in one of the other endpoints we've looked at.  The real value here is the number of results we get back, as you can request all of the members of a given Congress with just two requests (one for each chamber).</p>
