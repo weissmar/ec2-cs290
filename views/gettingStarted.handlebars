@@ -1,0 +1,19 @@
+<div class="page-header">
+	<h1>Getting Started</h1>
+</div>
+<p>The New York Times' Congress API is available for limited non-commercial use free of charge. Before you start making any requests with the API, you will need to sign up for a NYT account and request an API key.  Signing up for a NYT account is free and does not require a NYT subscription.  Once you are logged into your account, navigate to the <a href="http://developer.nytimes.com/apps/mykeys">developer API keys page</a> and request a key for the Congress API.  There are also a number of other interesting APIs available through the NYT, and you can request a key for each of those from the same page.
+</p>
+<p>Once you have requested your API key, it should be displayed on that same page within a few minutes.  Additionally, you will receive an email including the key at whichever email address you used to sign up for your NYT account.  Below you can see the box with the key (mine are blacked-out for security) and the rate limits associated with that key.  
+</p>
+<img src="/images/congressHowToKey.png" class="img-responsive" alt="Getting a Congress API Key">
+<p>Once you have your API key, you'll want to keep it somewhere handy, as you'll need it for any requests you make, but keep it secure.  This is not something you want to post publicly (as any requests made with your key are directly connected to your account).  In this guide, I will simply use a variable as a placeholder for the key, called "yourAPIKey". 
+</p>
+<p>Next, let's look at the base URI that we'll build upon to make requests.  All of the endpoints in The Congress API are accessed using GET requests, and they all start out the same:
+</p>
+<pre>http://api.nytimes.com/svc/politics/{version}/us/legislative/congress</pre>
+<p>The only variable to change in this base URI is the version.  The current version is "v3", so from here on out, I'll hardcode that value into the URI, to get:
+</p>
+<pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress</pre>
+<p>The other general variable that can apply to all requests in the API is the response format.  The default response format is XML.  Since it's the default, you don't need to include an XML specifier in the URI, although you can explicitly request an XML response using ".xml", if you like.  The other response format option is JSON, which can be specified using ".json".  For the purposes of this guide, I will use the JSON option in all of my requests.
+</p>
+<p>Now, on to making our first request!</p>

@@ -24,7 +24,7 @@ function getMembersByState(context, req, callback){
 	request(requestURIHouse, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.houseRepName = responseData.results[0].name;
 			req.session.houseRepParty = responseData.results[0].party;
 			req.session.houseRepId = responseData.results[0].id;
@@ -45,7 +45,7 @@ function getMembersByState(context, req, callback){
 	request(requestURISenate, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.senateRep1Name = responseData.results[0].name;
 			req.session.senateRep1Party = responseData.results[0].party;
 			req.session.senateRep1Id = responseData.results[0].id;
@@ -212,7 +212,7 @@ function getMemberBio(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.memberFirstName = responseData.results[0].first_name;
 			req.session.memberLastName = responseData.results[0].last_name;
 			req.session.memberBirthdate = responseData.results[0].date_of_birth;
@@ -247,7 +247,7 @@ function getMemberVotePositions(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.memberVote = [];
 			for (var vote in responseData.results[0].votes){
 				req.session.memberVote.push({"congressNum":responseData.results[0].votes[vote].congress,
@@ -281,7 +281,7 @@ function getAllMembers(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.chamberName = responseData.results[0].chamber;
 			req.session.congressNumber = responseData.results[0].congress;
 			req.session.congressMember = [];
@@ -314,7 +314,7 @@ function getRollCallVotes(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.voteQuestion = responseData.results.votes.vote.question;
 			req.session.voteDescription = responseData.results.votes.vote.description;
 			req.session.voteDate = responseData.results.votes.vote.date;
@@ -351,7 +351,7 @@ function getBillDetails(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.billTitle = responseData.results[0].title;
 			req.session.billId = responseData.results[0].bill;
 			req.session.billSponsor = responseData.results[0].sponsor;
@@ -379,7 +379,7 @@ function getBillsByMember(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.billMemberName = responseData.results[0].name;
 			req.session.billMemberBill = [];
 			for (var bill in responseData.results[0].bills){
@@ -408,7 +408,7 @@ function getBillsByCosponsor(context, req, callback){
 	request(requestURI, function(err, response, body){
 		if(!err && response.statusCode < 400){
 			var responseData = JSON.parse(body);
-			console.log(responseData);
+			//console.log(responseData);
 			req.session.cosponsorMemberName = responseData.results[0].name;
 			req.session.cosponsorBill = [];
 			for (var bill in responseData.results[0].bills){
@@ -433,6 +433,26 @@ function getBillsByCosponsor(context, req, callback){
 	});
 }
 
+app.get('/', function(req,res,next){
+	var context = {};
+	res.render('homeHowTo', context);
+});
+
+app.get('/gettingStarted', function(req,res,next){
+	var context = {};
+	res.render('gettingStarted', context);
+});
+
+app.get('/makingARequest', function(req,res,next){
+	var context = {};
+	res.render('makingARequest', context);
+});
+
+app.get('/puttingItTogether', function(req,res,next){
+	var context = {};
+	res.render('puttingItTogether', context);
+});
+
 app.get('/demo', function(req,res,next){
 	var context = {};
 	if (!req.session.name){
@@ -441,6 +461,8 @@ app.get('/demo', function(req,res,next){
 	}
 
 	context.name = req.session.name;
+	var newContext = buildContext(context, req);
+	res.render('congress', context);
 });
 
 app.post('/demo', function(req,res){

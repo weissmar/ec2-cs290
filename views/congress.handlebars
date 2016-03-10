@@ -1,5 +1,10 @@
-<h1>Hello {{name}}, let's learn about your representatives!</h1>
-<h2>Enter your state and congressional district to get started.</h2>
+<div class="page-header">
+  <h1>Demo Application</h1>
+
+</div>
+
+<h2>Hello {{name}}, let's learn about your representatives!</h2>
+<h3>Enter your state and congressional district to get started.</h3>
 <form method="post">
   <label for="yourState">Your state (two letter representation):</label>
   <input type="text" name="state" id="yourState">
@@ -8,8 +13,8 @@
   <input type="submit" name="Find My Members" value="Find My Members">
 </form>
 {{#if state}}
-<h2>Your representatives:</h2>
-<h3>State:{{state}}   District:{{district}}</h3>
+<h4>Your representatives:</h4>
+<h5>State:{{state}}   District:{{district}}</h5>
 <ul>
   <li>Senate:
     <ul>
@@ -39,7 +44,7 @@
   </li>
 </ul>
 {{/if}}
-<h2>Enter a congressional ID to get more information on that member of Congress:</h2>
+<h3>Enter a congressional ID to get more information on that member of Congress:</h3>
 <form method="post">
   <label for="aMemberId">ID:</label>
   <input type="text" name="memberId" id="aMemberId" value="{{memberId}}">
@@ -47,7 +52,7 @@
   <input type="submit" name="Member Votes" value="Get Member Votes">
 </form>
 {{#if memberId}}
-<h2>Congressional Member Information</h2>
+<h4>Congressional Member Information</h4>
 <ul>
   <li>ID: {{memberId}}
     <ul>
@@ -102,7 +107,7 @@
   </li>
 </ul>
 {{/if}}
-<h2>Enter a Congress number and chamber to see all of the members of that chamber of Congress.</h2>
+<h3>Enter a Congress number and chamber to see all of the members of that chamber of Congress.</h3>
 <form method="post">
   <label for="aCongressNumber">Congress:</label>
   <select name="congressNumber" id="aCongressNumber">
@@ -128,7 +133,7 @@
   <input type="submit" name="Find All Members" value="Find All Members">
 </form>
 {{#if chamberName}}
-<h2>The members of the {{chamberName}} in the {{congressNumber}} Congress:</h2>
+<h4>The members of the {{chamberName}} in the {{congressNumber}} Congress:</h4>
 {{/if}}
 <ul>
   {{#each congressMember}}
@@ -145,7 +150,7 @@
   </li>
   {{/each}}
 </ul>
-<h2>To see voting details from a particular roll call, enter the Congress number, chamber, session number, and roll call number.</h2>
+<h3>To see voting details from a particular roll call, enter the Congress number, chamber, session number, and roll call number.</h3>
 <form method="post">
   <label for="aRollCallCongressNum">Congress:</label>
   <select name="rollCallCongressNum" id="aRollCallCongressNum">
@@ -175,7 +180,7 @@
   <input type="submit" name="Get Voting Details" value="Get Voting Details">
 </form>
 {{#if voteQuestion}}
-<h2>Voting Details from Roll Call {{rollCallNumber}} (session {{rollCallSession}}, {{rollCallChamber}}, Congress {{rollCallCongressNum}})</h2>
+<h4>Voting Details from Roll Call {{rollCallNumber}} (session {{rollCallSession}}, {{rollCallChamber}}, Congress {{rollCallCongressNum}})</h4>
 <ul>
   <li>Question: {{voteQuestion}}
     <ul>
@@ -215,7 +220,7 @@
   </li>
 </ul>
 {{/if}}
-<h2>To learn more about a bill, enter the bill identifier and Congress number:</h2>
+<h3>To learn more about a bill, enter the bill identifier and Congress number:</h3>
 <form method="post">
   <label for="aBillCongressNum">Congress:</label>
   <select name="billCongressNum" id="aBillCongressNum">
@@ -238,7 +243,7 @@
   <input type="submit" name="Get Bill Details" value="Get Bill Details">
 </form>
 {{#if billTitle}}
-<h2>Bill Details:</h2>
+<h4>Bill Details:</h4>
 <ul>
   <li>{{billId}}
     <ul>
@@ -252,3 +257,64 @@
   </li>
 </ul>
 {{/if}}
+<h3>To get the 20 bills most recently updated or introduced by a member, enter the member ID and type:</h3>
+<form method="post">
+  <label for="aBillMemberId">Member ID:</label>
+  <input type="text" name="billMemberId" id="aBillMemberId">
+  <label for="aBillMemberType">Would you like the most recent bills introduced or updated by this member?</label>
+  <select name="billMemberType" id="aBillMemberType">
+    <option value="introduced">introduced</option>
+    <option value="updated">updated</option>
+  </select>
+  <input type="submit" name="Get Bills by Member" value="Get Bills by Member">
+</form>
+{{#if billMemberName}}
+<h4>Most recent bills {{billMemberType}} by {{billMemberName}}:</h4>
+<ul>
+  {{#each billMemberBill}}
+  <li>{{this.billNumber}}
+    <ul>
+      <li>Title: {{this.billTitle}}</li>
+      <li>Date Introduced: {{this.dateIntro}}</li>
+      <li>Cosponsors: {{this.cosponsors}}</li>
+      <li>Latest Major Action Date: {{this.latestDate}}</li>
+      <li>Latest Major Action: {{this.latestAction}}</li>
+    </ul>
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+<h3>To get the 20 bills most recently cosponsored or withdrawn by a member, enter the member ID and type:</h3>
+<form method="post">
+  <label for="aCosponsorId">Member ID:</label>
+  <input type="text" name="cosponsorId" id="aCosponsorId">
+  <label for="aCosponsorActionType">Would you like the bills most recently cosponsored or withdrawn by this member?</label>
+  <select name="cosponsorActionType" id="aCosponsorActionType">
+    <option value="cosponsored">cosponsored</option>
+    <option value="withdrawn">withdrawn</option>
+  </select>
+  <input type="submit" name="Get Bills by Cosponsor" value="Get Bills by Cosponsor">
+</form>
+{{#if cosponsorMemberName}}
+<h4>Most recent bills {{cosponsorActionType}} by {{cosponsorMemberName}}:</h4>
+<ul>
+  {{#each cosponsorBill}}
+  <li>{{this.billNumber}}
+    <ul>
+      <li>Title: {{this.billTitle}}</li>
+      <li>Sponsor ID: {{this.sponsorId}}</li>
+      <li>Date Introduced: {{this.dateIntro}}</li>
+      <li>Cosponsor Date: {{this.cosponsorDate}}</li>
+      {{#if withdrawnDate}}
+      <li>Date Withdrawn: {{this.withdrawnDate}}</li>
+      {{/if}}
+      <li>Cosponsors: {{this.cosponsors}}</li>
+      <li>Latest Major Action Date: {{this.latestDate}}</li>
+      <li>Latest Major Action: {{this.latestAction}}</li>
+    </ul>
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+
+  <img src="/images/poweredby_nytimes_200a.png" class="img-responsive logo" alt="Data provided by The New York Times">

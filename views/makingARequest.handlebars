@@ -1,0 +1,126 @@
+<div class="page-header">
+	<h1>Making a Request</h1>
+</div>
+<p>Now that you have read over the basic information and have an API key, you're ready to make a request!  The first endpoint we'll look at is the "Current Members by State/District".  This returns the current members of a particular chamber of Congress from the specified state and district (for House members).  The URI format for this request is:</p>
+<pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/{chamber}/{state}/{district}/current[.response-format]?api-key={your-API-key}</pre>
+<p>Extracting the variables out of the URI, we have the following:</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Variable</th>
+		<th>Description</th>
+		<th>Options</th>
+	</tr>
+	<tr>
+		<td>chamber</td>
+		<td>which chamber's members to return</td>
+		<td>house, senate</td>
+	</tr>
+	<tr>
+		<td>state</td>
+		<td>narrow members by state</td>
+		<td>must be the two-letter state abreviation</td>
+	</tr>
+	<tr>
+		<td>district</td>
+		<td>narrow members by district</td>
+		<td>must be a valid district in the specified state, or "1" for at-large states (not required for senate requests)</td>
+	</tr>
+</table>
+<p>Additionally, you can see the locations in the URI for the response format and API key.  I'll go ahead and fill in all of the variables to create a valid request (except for the key, which I'll leave as yourAPIKey).</p>
+<pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/house/OR/4/current.json?api-key=yourAPIKey</pre>
+<p>Now, if you copy and paste the URI into a browser (and swap in your API key), you'll have made your first request!</p>
+<p>Let's look at what we got back:</p>
+<pre>
+<!-- HTML generated using hilite.me -->{
+	status: <span style="color: #062873; font-weight: bold">&quot;OK&quot;</span>,
+	copyright: <span style="color: #062873; font-weight: bold">&quot;Copyright (c) 2016 The New York Times Company. All Rights Reserved.&quot;</span>,
+	results: [
+		{
+			id: <span style="color: #062873; font-weight: bold">&quot;D000191&quot;</span>,
+			name: <span style="color: #062873; font-weight: bold">&quot;Peter A. DeFazio&quot;</span>,
+			role: <span style="color: #062873; font-weight: bold">&quot;Representative&quot;</span>,
+			gender: <span style="color: #062873; font-weight: bold">&quot;M&quot;</span>,
+			party: <span style="color: #062873; font-weight: bold">&quot;D&quot;</span>,
+			times_topics_url: <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+			twitter_id: <span style="color: #062873; font-weight: bold">&quot;RepPeterDeFazio&quot;</span>,
+			youtube_id: <span style="color: #062873; font-weight: bold">&quot;PeterDeFazio&quot;</span>,
+			seniority: <span style="color: #062873; font-weight: bold">&quot;30&quot;</span>,
+			next_election: <span style="color: #062873; font-weight: bold">&quot;2014&quot;</span>,
+			api_url: <span style="color: #062873; font-weight: bold">&quot;http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/D000191.json&quot;</span>,
+			district: <span style="color: #062873; font-weight: bold">&quot;4&quot;</span>
+		}
+	]
+}
+</pre>
+<p>The status and copyright will be included in every response from The Congress API.  Since our request was successful, the status is "OK".  If we had entered faulty data (for example, a district number that doesn't exist in the specified state), the status would be "ERROR" instead.  Note: if you use an incorrect API key, you won't receive an object in the response at all, and instead receive a message that the developer is inactive.
+</p>
+<p>Now for the interesting part of the response: the results!</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>id</td>
+		<td>D000191</td>
+		<td>A unique identifier for the member, these alphanumeric codes come from the <a href="http://bioguide.congress.gov/biosearch/biosearch.asp">Biographical Directory of the United States Congress</a>.</td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td>Peter A. DeFazio</td>
+		<td>The full name of the member.</td>
+	</tr>
+	<tr>
+		<td>role</td>
+		<td>Representative</td>
+		<td>The role or title that the member holds in Congress.</td>
+	</tr>
+	<tr>
+		<td>gender</td>
+		<td>M</td>
+		<td>The gender of the member of Congress. M for male, F for female.</td>
+	</tr>
+	<tr>
+		<td>party</td>
+		<td>D</td>
+		<td>The party that the member was elected with. D for democratic, R for republican, I for independent.</td>
+	</tr>
+	<tr>
+		<td>times_topics_url</td>
+		<td>empty</td>
+		<td>A URL that links to New York Times articles about the member, if available. (These are only available for some members.)</td>
+	</tr>
+	<tr>
+		<td>twitter_id</td>
+		<td>RepPeterDeFazio</td>
+		<td>The member's Twitter id, if they have one.  It can be used to link to their Twitter feed.</td>
+	</tr>
+	<tr>
+		<td>youtube_id</td>
+		<td>PeterDeFazio</td>
+		<td>The member's YouTube id, if they have one.  It can be used to link to their YouTube page.</td>
+	</tr>
+	<tr>
+		<td>seniority</td>
+		<td>30</td>
+		<td>This is the number of years the member has served in the chamber they currently serve in.</td>
+	</tr>
+	<tr>
+		<td>next_election</td>
+		<td>2014</td>
+		<td>The year when their seat is next up for election.  (This is not always accurate, as in this example.)</td>
+	</tr>
+	<tr>
+		<td>api_url</td>
+		<td>http://api.nytimes.com/svc/politics/v3/us/
+			legislative/congress/members/D000191.json</td>
+		<td>The URL to use to request more information on this member from the API.  To make a valid request, you just have to add "?api-key=" and your API key.</td>
+	</tr>
+	<tr>
+		<td>district</td>
+		<td>4</td>
+		<td>The district that a House member represents, or "1" for at-large states.  (This is not included in Senate responses.)</td>
+	</tr>
+</table>
+<p>Now that we've seen how to construct a request, and what kind of data we get back, let's put it all together in a Node.js application that get's the parameters from a user, makes the request, and then displays the returned data.</p>

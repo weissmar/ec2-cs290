@@ -1,0 +1,40 @@
+<h3>Enter your state and congressional district to get started.</h3>
+<form method="post">
+  <label for="yourState">Your state (two letter representation):</label>
+  <input type="text" name="state" id="yourState">
+  <label for="yourDistrict">Your congressional district (number):</label>
+  <input type="text" name="district" id="yourDisctrict">
+  <input type="submit" name="Find My Members" value="Find My Members">
+</form>
+{{#if state}}
+<h4>Your representatives:</h4>
+<h5>State:{{state}}   District:{{district}}</h5>
+<ul>
+  <li>Senate:
+    <ul>
+      <li>{{senateRep1Name}}
+        <ul>
+          <li>Party: {{senateRep1Party}}</li>
+          <li>ID: {{senateRep1Id}}</li>
+        </ul>
+      </li>
+      <li>{{senateRep2Name}}
+        <ul>
+          <li>Party: {{senateRep2Party}}</li>
+          <li>ID: {{senateRep2Id}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>House:
+    <ul>
+      <li>{{houseRepName}}
+        <ul>
+          <li>Party: {{houseRepParty}}</li>
+          <li>ID: {{houseRepId}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+{{/if}}
