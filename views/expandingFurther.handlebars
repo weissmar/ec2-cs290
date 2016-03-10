@@ -1,0 +1,267 @@
+<div class="page-header">
+	<h1>Expanding Further with Different Endpoints</h1>
+</div>
+<p>Now that we've gone through the full process of writing the necessary Handlebars and JavaScript files to use one API endpoint, we'll look at some additional endpoints.  I'll go over the parameters used for each endpoint's URI, as well as the data fields returned.
+</p>
+<p>Since we already know how to get the members of Congress for a given state and district, the next endpoint we'll cover will allow us to get some more information about these (or other) members.  This endpoint is "Member Bio and Roles".  The base URI is as follows:
+	</p>
+<pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/{member-id}[.response-format]?api-key={your-API-key}</pre>
+<p>As you can see, this URI is pretty simple.  We just have one parameter to fill in:</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Variable</th>
+		<th>Description</th>
+		<th>Options</th>
+	</tr>
+	<tr>
+		<td>member-id</td>
+		<td>A unique identifier for the member.</td>
+		<td>You can either use the id returned from a previous request, or you can go to the <a href="http://bioguide.congress.gov/biosearch/biosearch.asp">Biographical Directory of the United States Congress</a>, look up your desired member of Congress, and copy the id from the URL.</td>
+	</tr>
+</table>
+<p>As before, and with all further endpoints, you can enter the optional response format specifier and you must enter your API key.  (I won't mention this step in any of the following endpoints, but it does still apply.)  I'll go ahead and fill out an example request:
+</p>
+<pre>http://api.nytimes.com/svc/politics/v3/us/legislative/congress/members/B001278.json?api-key=yourAPIKey</pre>
+<p>If you go ahead and make this request (either by copy and pasting it into your browser, or by creating a request in your JavaScript file), you should get something similar to the following:</p>
+<pre>
+<!-- HTML generated using hilite.me -->{
+	<span>status:</span> <span style="color: #062873; font-weight: bold">&quot;OK&quot;</span>,
+	<span>copyright:</span> <span style="color: #062873; font-weight: bold">&quot;Copyright (c) 2016 The New York Times Company. All Rights Reserved.&quot;</span>,
+	<span>results:</span> <span>[</span>
+		<span>{</span>
+			<span>member_id:</span> <span style="color: #062873; font-weight: bold">&quot;B001278&quot;</span>,
+			<span>first_name:</span> <span style="color: #062873; font-weight: bold">&quot;Suzanne&quot;</span>,
+			<span>middle_name:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+			<span>last_name:</span> <span style="color: #062873; font-weight: bold">&quot;Bonamici&quot;</span>,
+			<span>date_of_birth:</span> <span style="color: #062873; font-weight: bold">&quot;1954-10-14&quot;</span>,
+			<span>gender:</span> <span style="color: #062873; font-weight: bold">&quot;F&quot;</span>,
+			<span>url:</span> <span style="color: #062873; font-weight: bold">&quot;http://bonamici.house.gov&quot;</span>,
+			<span>times_topics_url:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+			<span>times_tag:</span> <span style="color: #062873; font-weight: bold">&quot;&quot;</span>,
+			<span>govtrack_id:</span> <span style="color: #062873; font-weight: bold">&quot;412501&quot;</span>,
+			<span>cspan_id:</span> <span style="color: #062873; font-weight: bold">&quot;63966&quot;</span>,
+			<span>icpsr_id:</span> <span style="color: #062873; font-weight: bold">&quot;21198&quot;</span>,
+			<span>thomas_id:</span> <span style="color: #062873; font-weight: bold">&quot;2092&quot;</span>,
+			<span>twitter_account:</span> <span style="color: #062873; font-weight: bold">&quot;RepBonamici&quot;</span>,
+			<span>facebook_account:</span> <span style="color: #062873; font-weight: bold">&quot;congresswomanbonamici&quot;</span>,
+			<span>facebook_id:</span> <span style="color: #062873; font-weight: bold">&quot;252633384817156&quot;</span>,
+			<span>youtube_account:</span> <span style="color: #062873; font-weight: bold">&quot;RepSuzanneBonamici&quot;</span>,
+			<span>rss_url:</span> <span style="color: #062873; font-weight: bold">&quot;http://bonamici.house.gov/rss.xml&quot;</span>,
+			<span>domain:</span> <span style="color: #062873; font-weight: bold">&quot;bonamici.house.gov&quot;</span>,
+			<span>current_party:</span> <span style="color: #062873; font-weight: bold">&quot;D&quot;</span>,
+			<span>most_recent_vote:</span> <span style="color: #062873; font-weight: bold">&quot;2016-01-12&quot;</span>,
+			<span>roles:</span> <span>[</span>
+				<span>{</span> <span>...</span> }<span>,</span>
+				{
+					<span>congress:</span> <span style="color: #062873; font-weight: bold">&quot;113&quot;</span>,
+					<span>chamber:</span> <span style="color: #062873; font-weight: bold">&quot;House&quot;</span>,
+					<span>title:</span> <span style="color: #062873; font-weight: bold">&quot;Representative&quot;</span>,
+					<span>state:</span> <span style="color: #062873; font-weight: bold">&quot;OR&quot;</span>,
+					<span>party:</span> <span style="color: #062873; font-weight: bold">&quot;D&quot;</span>,
+					<span>seniority:</span> <span style="color: #062873; font-weight: bold">&quot;4&quot;</span>,
+					<span>district:</span> <span style="color: #062873; font-weight: bold">&quot;1&quot;</span>,
+					<span>start_date:</span> <span style="color: #062873; font-weight: bold">&quot;2013-01-03&quot;</span>,
+					<span>end_date:</span> <span style="color: #062873; font-weight: bold">&quot;2015-01-03&quot;</span>,
+					<span>bills_sponsored:</span> <span style="color: #062873; font-weight: bold">&quot;15&quot;</span>,
+					<span>bills_cosponsored:</span> <span style="color: #062873; font-weight: bold">&quot;318&quot;</span>,
+					<span>missed_votes_pct:</span> <span style="color: #062873; font-weight: bold">&quot;0.08&quot;</span>,
+					<span>votes_with_party_pct:</span> <span style="color: #062873; font-weight: bold">&quot;95.97&quot;</span>,
+					<span>committees:</span> <span>[</span>
+						<span>{</span>
+							<span>name:</span> <span style="color: #062873; font-weight: bold">&quot;Committee on Science, Space, and Technology&quot;</span>,
+							<span>code:</span> <span style="color: #062873; font-weight: bold">&quot;HSSY&quot;</span>,
+							<span>api_uri:</span> <span style="color: #062873; font-weight: bold">&quot;http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/house/committees/HSSY.json&quot;</span>,
+							<span>rank_in_party:</span> <span style="color: #062873; font-weight: bold">&quot;6&quot;</span>,
+							<span>begin_date:</span> <span style="color: #062873; font-weight: bold">&quot;2013-01-03&quot;</span>,
+							<span>end_date:</span> <span style="color: #062873; font-weight: bold">&quot;2015-01-03&quot;</span>
+						}<span>,</span>
+						{ <span>...</span> }
+					<span>]</span>
+				<span>},</span>
+				{ <span>...</span> }
+			<span>]</span>
+		<span>}</span>
+	<span>]</span>
+<span>}</span>
+</pre>
+<p>There were more results in "roles" and "committees" that I have omitted, as they only included duplicate fields.  Taking a closer look at what we got back (fields that were described on <a href="makingARequest">a previous page</a> are omitted from the table):
+</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>first_name</td>
+		<td>Suzanne</td>
+		<td>The member's first name.</td>
+	</tr>
+	<tr>
+		<td>middle_name</td>
+		<td>empty</td>
+		<td>The member's middle name (or initial).  This field is often blank.</td>
+	</tr>
+	<tr>
+		<td>last_name</td>
+		<td>Bonamici</td>
+		<td>The member's last name.</td>
+	</tr>
+	<tr>
+		<td>date_of_birth</td>
+		<td>1945-10-14</td>
+		<td>The member's date of birth (in YYYY-MM-DD format).</td>
+	</tr>
+	<tr>
+		<td>url</td>
+		<td>http://bonamici.house.gov</td>
+		<td>The member's official website.  This field is often blank for members who are no longer serving in office.</td>
+	</tr>
+	<tr>
+		<td>times_tag</td>
+		<td>empty</td>
+		<td>A tag associated with the member that may be used to view a Times Topics page about the member.  For more information, go to <a href="http://developer.nytimes.com/docs/read/timestags_api#h2-why">The TimesTags API Doc</a>.</td>
+	</tr>
+	<tr>
+		<td>govtrack_id</td>
+		<td>412501</td>
+		<td>The member's GovTrack id.  It can be used to link to their GovTrack page.</td>
+	</tr>
+	<tr>
+		<td>cspan_id</td>
+		<td>63966</td>
+		<td>The member's CSPAN id.  It can be used to link to their CSPAN page.</td>
+	</tr>
+	<tr>
+		<td>icpsr_id</td>
+		<td>21198</td>
+		<td>The member's ICPSR id.  It is used in the ICPSR database, however I was unable to find where exactly one could use this.</td>
+	</tr>
+	<tr>
+		<td>thomas_id</td>
+		<td>2092</td>
+		<td>The member's id in The Library of Congress.</td>
+	</tr>
+	<tr>
+		<td>facebook_account</td>
+		<td>congresswomanbonamici</td>
+		<td>The member's Facebook account name, if available.  This can be used to link to their Facebook page.</td>
+	</tr>
+	<tr>
+		<td>facebook_id</td>
+		<td>252633384817156</td>
+		<td>The member's Facebook id, if available.  This can also be used to link to their Facebook page.</td>
+	</tr>
+	<tr>
+		<td>rss_url</td>
+		<td>http://bonamici.house.gov/rss.xml</td>
+		<td>A URL to the member's RSS feed.  This is usually not available for members no longer in office.</td>
+	</tr>
+	<tr>
+		<td>domain</td>
+		<td>bonamici.house.gov</td>
+		<td>The member's governmental domain.  This is usually not available for members no longer in office.</td>
+	</tr>
+	<tr>
+		<td>most_recent_vote</td>
+		<td>2016-01-12</td>
+		<td>The date of the member's most recent vote (in YYYY-MM-DD format).  This is often out of date.</td>
+	</tr>
+	<tr>
+		<td>roles</td>
+		<td>an array of role objects</td>
+		<td>The roles that a member has filled while in office, listed by Congress number, starting with the most recent.</td>
+	</tr>
+</table>
+<p>Now to look at the fields in a role object:</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>congress</td>
+		<td>113</td>
+		<td>The Congress number during with the role was filled.</td>
+	</tr>
+	<tr>
+		<td>chamber</td>
+		<td>House</td>
+		<td>The chamber of Congress that the member was serving in at the time.</td>
+	</tr>
+	<tr>
+		<td>title</td>
+		<td>Representative</td>
+		<td>The member's title at the time.</td>
+	</tr>
+	<tr>
+		<td>start_date</td>
+		<td>2013-01-03</td>
+		<td>The start date of this term of service.</td>
+	</tr>
+	<tr>
+		<td>end_date</td>
+		<td>2015-01-03</td>
+		<td>The end of this term of service.</td>
+	</tr>
+	<tr>
+		<td>bills_sponsored</td>
+		<td>15</td>
+		<td>The number of bills sponsored by the member during this term of service.</td>
+	</tr>
+	<tr>
+		<td>bills_cosponsored</td>
+		<td>318</td>
+		<td>The number of bills cosponsored by the member during this term of service.</td>
+	</tr>
+	<tr>
+		<td>missed_votes_pct</td>
+		<td>0.08</td>
+		<td>The percentage of votes where the member was eligible to vote but did not vote during this term of service.</td>
+	</tr>
+	<tr>
+		<td>votes_with_party_pct</td>
+		<td>95.97</td>
+		<td>The percentage of votes in which the member's position aligned with the majority of their party during this term of service.</td>
+	</tr>
+	<tr>
+		<td>committees</td>
+		<td>array of committee objects</td>
+		<td>The committees that the member was a part of during this term of service.</td>
+	</tr>
+</table>
+<p>Finally, taking a look at the fields in a committee object:</p>
+<table class="table table-bordered">
+	<tr>
+		<th>Key</th>
+		<th>Value</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td>Committee on Science, Space, and Technology</td>
+		<td>The name of the committee.</td>
+	</tr>
+	<tr>
+		<td>code</td>
+		<td>HSSY</td>
+		<td>The committee's code.  This may be used to access more information about the committee through another endpoint in The Congress API.</td>
+	</tr>
+	<tr>
+		<td>rank_in_party</td>
+		<td>6</td>
+		<td>I was unable to find the significance of this field as it relates to the committee.</td>
+	</tr>
+	<tr>
+		<td>begin_date</td>
+		<td>2013-01-03</td>
+		<td>The start date of the member's service in this committee.</td>
+	</tr>
+	<tr>
+		<td>end_date</td>
+		<td>2015-01-03</td>
+		<td>The end date of the member's service in this committee.</td>
+	</tr>
+</table>
+<p>Whew!  That's a ton of data!  This is one of the most useful endpoints for getting a better idea of what our representatives in Congress are doing while in office.  </p>

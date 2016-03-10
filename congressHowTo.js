@@ -453,6 +453,11 @@ app.get('/puttingItTogether', function(req,res,next){
 	res.render('puttingItTogether', context);
 });
 
+app.get('/expandingFurther', function(req,res,next){
+	var context = {};
+	res.render('expandingFurther', context);
+});
+
 app.get('/demo', function(req,res,next){
 	var context = {};
 	if (!req.session.name){
