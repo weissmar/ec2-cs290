@@ -16,7 +16,7 @@ function addTableRow(rowData){
 	newNameCell.textContent = rowData.name;
 	newRepsCell.textContent = rowData.reps;
 	newWeightCell.textContent = rowData.weight;
-	newDateCell.textContent = rowData.date;
+	newDateCell.textContent = rowData.date.substring(0,10);
 	newLbsCell.textContent = rowData.lbs;
 
 	newRow.appendChild(newNameCell);
@@ -66,7 +66,7 @@ function updateTableRow(rowData){
 	cell = cell.nextElementSibling;
 	cell.textContent = rowData.weight;
 	cell = cell.nextElementSibling;
-	cell.textContent = rowData.date;
+	cell.textContent = rowData.date.substring(0,10);
 	cell = cell.nextElementSibling;
 	cell.textContent = rowData.lbs;
 }
