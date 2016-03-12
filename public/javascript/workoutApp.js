@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', bindButtons);
 document.addEventListener('DOMContentLoaded', initializeTable);
 
 function addTableRow(rowData){
-	var table = document.getElementByID('dataTable');
+	var table = document.getElementById('dataTable');
 
 	var newRow = document.createElement('tr');
 
@@ -52,7 +52,7 @@ function addTableRow(rowData){
 }
 
 function updateTableRow(rowData){
-	var row = document.getElementByID(rowData.id);
+	var row = document.getElementById(rowData.id);
 
 	var cell = row.parentNode.parentNode.firstElementChild;
 
@@ -68,7 +68,7 @@ function updateTableRow(rowData){
 }
 
 function updateRow(tableId, currentRow){
-	var table = document.getElementByID(tableId);
+	var table = document.getElementById(tableId);
 
 	var rowId = currentRow.parentNode.lastElementChild.value;
 
@@ -139,7 +139,7 @@ function updateRow(tableId, currentRow){
 function deleteRow(tableId, currentRow){
 	var req = new XMLHttpRequest();
 
-	var table = document.getElementByID(tableId);
+	var table = document.getElementById(tableId);
 	var rowId = currentRow.parentNode.lastElementChild.value;
 	var payload = {id:rowId};
 
@@ -162,12 +162,12 @@ function submitRowUpdate(){
 	var req = new XMLHttpRequest();
 
 	var updatedExercise = {name:null, reps:null, weight:null, date:null, lbs:null, id:null};
-	updatedExercise.name = document.getElementByID('newName').value;
-	updatedExercise.reps = document.getElementByID('newReps').value;
-	updatedExercise.weight = document.getElementByID('newWeight').value;
-	updatedExercise.date = document.getElementByID('newDate').value;
-	updatedExercise.lbs = document.getElementByID('newLbs').value;
-	updatedExercise.id = document.getElementByID('rowUpdateId').value;
+	updatedExercise.name = document.getElementById('newName').value;
+	updatedExercise.reps = document.getElementById('newReps').value;
+	updatedExercise.weight = document.getElementById('newWeight').value;
+	updatedExercise.date = document.getElementById('newDate').value;
+	updatedExercise.lbs = document.getElementById('newLbs').value;
+	updatedExercise.id = document.getElementById('rowUpdateId').value;
 
 	req.open('POST', 'http://52.88.225.102:3000/updateExercise', true);
 	req.setRequestHeader('Content-Type', 'application/json');
@@ -181,7 +181,7 @@ function submitRowUpdate(){
 	});
 	req.send(JSON.stringify(updatedExercise));
 
-	var formToRemove = document.getElementByID('newUpdateForm');
+	var formToRemove = document.getElementById('newUpdateForm');
 	var parentOfForm = formToRemove.parentNode;
 	parentOfForm.removeChild(formToRemove);
 
@@ -189,15 +189,15 @@ function submitRowUpdate(){
 }
 
 function bindButtons(){
-	document.getElementByID('addExercise').addEventListener('click', function(event){
+	document.getElementById('addExercise').addEventListener('click', function(event){
 		var req = new XMLHttpRequest();
 
 		var exercise = {name:null, reps:null, weight:null, date:null, lbs:null};
-		exercise.name = document.getElementByID('name').value;
-		exercise.reps = document.getElementByID('reps').value;
-		exercise.weight = document.getElementByID('weight').value;
-		exercise.date = document.getElementByID('date').value;
-		exercise.lbs = document.getElementByID('lbs').value;
+		exercise.name = document.getElementById('name').value;
+		exercise.reps = document.getElementById('reps').value;
+		exercise.weight = document.getElementById('weight').value;
+		exercise.date = document.getElementById('date').value;
+		exercise.lbs = document.getElementById('lbs').value;
 
 		req.open('POST', 'http://52.88.225.102:3000/addExercise', true);
 		req.setRequestHeader('Content-Type', 'application/json');
