@@ -137,7 +137,7 @@ function updateRow(tableId, currentRow){
 	newForm.appendChild(inputSubmit);
 	newForm.appendChild(newHiddenInput);
 
-	document.appendChild(newForm);
+	document.body.appendChild(newForm);
 }
 
 function deleteRow(tableId, currentRow){
