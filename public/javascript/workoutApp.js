@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', bindButtons);
+document.addEventListener('DOMContentLoaded', initializeTable);
 
 function addTableRow(rowData){
 	var table = document.getElementByID('dataTable');
@@ -55,7 +56,6 @@ function updateTableRow(rowData){
 
 	var cell = row.parentNode.parentNode.firstElementChild;
 
-	//************************************************************************ make loop?
 	cell.textContent = rowData.name;
 	cell = cell.nextElementSibling;
 	cell.textContent = rowData.reps;
@@ -70,7 +70,7 @@ function updateTableRow(rowData){
 function updateRow(tableId, currentRow){
 	var table = document.getElementByID(tableId);
 
-	var rowId = table.lastElementChild.value;
+	var rowId = currentRow.parentNode.lastElementChild.value;
 
 	var newForm = document.createElement('form');
 	var inputName = document.createElement('input');
@@ -136,6 +136,28 @@ function updateRow(tableId, currentRow){
 	document.appendChild(newForm);
 }
 
+function deleteRow(tableId, currentRow){
+	var req = new XMLHttpRequest();
+
+	var table = document.getElementByID(tableId);
+	var rowId = currentRow.parentNode.lastElementChild.value;
+	var payload = {id:rowId};
+
+	req.open('POST', 'http://52.88.225.102:3000/deleteExercise', true);
+	req.setRequestHeader('Content-Type', 'application/json');
+	req.addEventListener('load', function(){
+		if(req.status >=200 && req.status < 400){
+			var response = JSON.parse(req.responseText);
+			var rowToRemove = currentRow.parentNode.parentNode;
+			table.removeChild(rowToRemove);
+		} else {
+			console.log("Error in request: " + req.statusText);
+		}
+	});
+	req.send(JSON.stringify(payload));
+	event.preventDefault();
+}
+
 function submitRowUpdate(){
 	var req = new XMLHttpRequest();
 
@@ -158,6 +180,11 @@ function submitRowUpdate(){
 		}
 	});
 	req.send(JSON.stringify(updatedExercise));
+
+	var formToRemove = document.getElementByID('newUpdateForm');
+	var parentOfForm = formToRemove.parentNode;
+	parentOfForm.removeChild(formToRemove);
+
 	event.preventDefault();
 }
 
@@ -185,4 +212,22 @@ function bindButtons(){
 		req.send(JSON.stringify(exercise));
 		event.preventDefault();
 	});
+}
+
+function initializeTable(){
+	var req = new XMLHttpRequest();
+
+	req.open('GET', 'http://52.88.225.102:3000/getTable', true);
+	req.addEventListener('load', function(){
+		if(req.status >= 200 && req.status < 400){
+			var response = JSON.parse(req.responseText);
+			for(var row in response){
+				addTableRow(response[row]);
+			}
+		} else {
+			console.log("Error in request: " + req.statusText);
+		}
+	});
+	req.send(null);
+	event.preventDefault();
 }
