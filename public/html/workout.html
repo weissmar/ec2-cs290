@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="workoutApp.js"></script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Add Exercise</legend>
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+        <label for="reps">Resps</label>
+        <input type="text" name="reps" id="reps">
+        <label for="weight">Weight</label>
+        <input type="text" name="weight" id="weight">
+        <label for="date">Date</label>
+        <input type="text" name="date" id="date">
+        <label for="lbs">lbs</label>
+        <input type="text" name="lbs" id="lbs">
+        <input type="submit" id="addExercise" value="Add Exercise"> 
+      </fieldset>
+    </form>
+    <div>
+      <h2>Completed Exercises</h2>
+      <table id="dataTable">
+      	<tr>
+      		<th>Name</th>
+      		<th>Reps</th>
+      		<th>Weight</th>
+      		<th>Date</th>
+      		<th>lbs</th>
+      	</tr>
+      </table>
+    </div>
+  </body>
+</html>
