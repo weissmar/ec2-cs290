@@ -123,7 +123,7 @@ function updateRow(tableId, currentRow){
 	inputSubmit.type = 'submit';
 	inputSubmit.id = 'updateExercise';
 	inputSubmit.value = 'Update Exercise';
-	inputSubmit.onclick = 'submitRowUpdate()';
+	inputSubmit.onclick = submitRowUpdate();
 
 	newHiddenInput.type = 'hidden';
 	newHiddenInput.id = 'rowUpdateId';
