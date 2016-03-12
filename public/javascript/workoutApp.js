@@ -87,6 +87,8 @@ function updateRow(tableId, currentRow){
 
 	var cell = currentRow.parentNode.parentNode.firstElementChild;
 
+	newForm.id='newUpdateForm';
+
 	inputName.type = 'text';
 	inputName.name = 'newName';
 	inputName.id = 'newName';
