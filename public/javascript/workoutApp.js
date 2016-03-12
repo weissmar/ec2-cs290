@@ -32,11 +32,15 @@ function addTableRow(rowData){
 
 	newUpdateButton.type = 'button';
 	newUpdateButton.value = 'Update';
-	newUpdateButton.onclick = 'updateRow("dataTable", this)';
+	newUpdateButton.onclick = function(){
+		updateRow("dataTable", newUpdateButton);
+	};
 
 	newDeleteButton.type = 'button';
 	newDeleteButton.value = 'Delete';
-	newDeleteButton.onclick = 'deleteRow("dataTable", this)';
+	newDeleteButton.onclick = function(){
+		deleteRow("dataTable", newDeleteButton);
+	};
 
 	newHiddenInput.type = 'hidden';
 	newHiddenInput.id = rowData.id;
