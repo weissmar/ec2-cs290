@@ -120,7 +120,7 @@ function updateRow(tableId, currentRow){
 	inputLbs.id = 'newLbs';
 	inputLbs.value = cell.textContent;
 
-	inputSubmit.type = 'submit';
+	inputSubmit.type = 'button';
 	inputSubmit.id = 'updateExercise';
 	inputSubmit.value = 'Update Exercise';
 	inputSubmit.onclick = function(){
