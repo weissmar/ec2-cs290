@@ -209,7 +209,7 @@ function bindButtons(){
 				console.log("Error in request: " + req.statusText);
 			}
 		});
-		req.send(JSON.stringify(exercise));
+		req.send(exercise);
 		event.preventDefault();
 	});
 }
