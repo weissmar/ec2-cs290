@@ -21,7 +21,7 @@ app.set('port', 3000);
 
 app.post('/addExercise', function(req,res,next){
 	pool.query("INSERT INTO workouts (name, reps, weight, date, lbs) VALUES (?, ?, ?, ?, ?)", 
-		[req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs], 
+		[req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs], 
 		function(err, result){
 		if(err){
 			next(err);
@@ -40,13 +40,13 @@ app.post('/addExercise', function(req,res,next){
 
 app.post('/updateExercise', function(req,res,next){
 	pool.query("UPDATE workouts SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?", 
-		[req.query.name, req.query.reps, req.query.weight, req.query.date, req.query.lbs, req.query.id], 
+		[req.body.name, req.body.reps, req.body.weight, req.body.date, req.body.lbs, req.body.id], 
 		function(err, result){
 		if(err){
 			next(err);
 			return;
 		}
-		pool.query("SELECT * FROM workouts WHERE id=?", [req.query.id], function(err, rows, fields){
+		pool.query("SELECT * FROM workouts WHERE id=?", [req.body.id], function(err, rows, fields){
 			if(err){
 				next(err);
 				return;
@@ -58,7 +58,7 @@ app.post('/updateExercise', function(req,res,next){
 });
 
 app.post('/deleteExercise', function(req,res,next){
-	pool.query("DELETE FROM workouts WHERE id=?", [req.query.id], function(err, result){
+	pool.query("DELETE FROM workouts WHERE id=?", [req.body.id], function(err, result){
 		if(err){
 			next(err);
 			return;
