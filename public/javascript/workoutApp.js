@@ -181,9 +181,19 @@ function removeUpdateForm(rowId){
 }
 
 function submitRowUpdate(formSubmit){
-	var req = new XMLHttpRequest();
-
 	var rowId = formSubmit.parentNode.lastElementChild.value;
+
+	if(document.getElementById('newName' + rowId).value == ""){
+		var statusElement = document.getElementById('updateStatusP');
+		statusElement.textContent = "Error: Cannot add exercise with empty name. Please enter a valid name.";
+		event.preventDefault();
+		return;
+	} else {
+		var statusElement = document.getElementById('updateStatusP');
+		statusElement.textContent = "";
+	}
+
+	var req = new XMLHttpRequest();
 
 	var updatedExercise = {name:null, reps:null, weight:null, date:null, lbs:null, id:null};
 	updatedExercise.name = document.getElementById('newName' + rowId).value;
