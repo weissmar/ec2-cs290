@@ -1,3 +1,7 @@
+table {
+	border-collapse: collapse;
+}
+
 th, td {
 	border-bottom: solid 1px;
 	border-color: lightsteelblue;
