@@ -1,4 +1,9 @@
 th, td {
-	border: solid;
-	border-color: black;
+	border-bottom: solid 1px;
+	border-color: lightsteelblue;
+	padding-right: 20px;
+}
+
+p {
+	color: firebrick;
 }
