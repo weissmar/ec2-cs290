@@ -76,6 +76,10 @@ function updateRow(tableId, currentRow){
 
 	var rowId = currentRow.parentNode.lastElementChild.value;
 
+	if(document.getElementById('newUpdateForm' + rowId)){
+		return;
+	}
+
 	var newForm = document.createElement('form');
 	var inputName = document.createElement('input');
 	var inputReps = document.createElement('input');
