@@ -162,12 +162,22 @@ function deleteRow(tableId, currentRow){
 			var response = JSON.parse(req.responseText);
 			var rowToRemove = currentRow.parentNode.parentNode;
 			table.removeChild(rowToRemove);
+
+			removeUpdateForm(rowId);
 		} else {
 			console.log("Error in request: " + req.statusText);
 		}
 	});
 	req.send(JSON.stringify(payload));
 	event.preventDefault();
+}
+
+function removeUpdateForm(rowId){
+	if(document.getElementById('newUpdateForm' + rowId)){
+		var formToRemove = document.getElementById('newUpdateForm' + rowId);
+		var parentOfForm = formToRemove.parentNode;
+		parentOfForm.removeChild(formToRemove);
+	}
 }
 
 function submitRowUpdate(formSubmit){
@@ -195,9 +205,7 @@ function submitRowUpdate(formSubmit){
 	});
 	req.send(JSON.stringify(updatedExercise));
 
-	var formToRemove = document.getElementById('newUpdateForm' + rowId);
-	var parentOfForm = formToRemove.parentNode;
-	parentOfForm.removeChild(formToRemove);
+	removeUpdateForm(rowId);
 
 	event.preventDefault();
 }
