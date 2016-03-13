@@ -1,4 +1,4 @@
-table {
-	border: thin;
+th, td {
+	border: solid;
 	border-color: black;
 }
