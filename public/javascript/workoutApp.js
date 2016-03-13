@@ -87,50 +87,50 @@ function updateRow(tableId, currentRow){
 
 	var cell = currentRow.parentNode.parentNode.firstElementChild;
 
-	newForm.id='newUpdateForm';
+	newForm.id='newUpdateForm' + rowId;
 
 	inputName.type = 'text';
 	inputName.name = 'newName';
-	inputName.id = 'newName';
+	inputName.id = 'newName' + rowId;
 	inputName.value = cell.textContent;
 
 	cell = cell.nextElementSibling;
 
 	inputReps.type = 'text';
 	inputReps.name = 'newReps';
-	inputReps.id = 'newReps';
+	inputReps.id = 'newReps' + rowId;
 	inputReps.value = cell.textContent;
 
 	cell = cell.nextElementSibling;
 
 	inputWeight.type = 'text';
 	inputWeight.name = 'newWeight';
-	inputWeight.id = 'newWeight';
+	inputWeight.id = 'newWeight' + rowId;
 	inputWeight.value = cell.textContent;
 
 	cell = cell.nextElementSibling;
 
 	inputDate.type = 'text';
 	inputDate.name = 'newDate';
-	inputDate.id = 'newDate';
+	inputDate.id = 'newDate' + rowId;
 	inputDate.value = cell.textContent;
 
 	cell = cell.nextElementSibling;
 
 	inputLbs.type = 'text';
 	inputLbs.name = 'newLbs';
-	inputLbs.id = 'newLbs';
+	inputLbs.id = 'newLbs' + rowId;
 	inputLbs.value = cell.textContent;
 
 	inputSubmit.type = 'button';
-	inputSubmit.id = 'updateExercise';
+	inputSubmit.id = 'updateExercise' + rowId;
 	inputSubmit.value = 'Update Exercise';
 	inputSubmit.onclick = function(){
-		submitRowUpdate();
+		submitRowUpdate(inputSubmit);
 	};
 
 	newHiddenInput.type = 'hidden';
-	newHiddenInput.id = 'rowUpdateId';
+	newHiddenInput.id = 'rowUpdateId' + rowId;
 	newHiddenInput.value = rowId;
 
 	newForm.appendChild(inputName);
@@ -166,16 +166,18 @@ function deleteRow(tableId, currentRow){
 	event.preventDefault();
 }
 
-function submitRowUpdate(){
+function submitRowUpdate(formSubmit){
 	var req = new XMLHttpRequest();
 
+	var rowId = formSubmit.parentNode.lastElementChild.value;
+
 	var updatedExercise = {name:null, reps:null, weight:null, date:null, lbs:null, id:null};
-	updatedExercise.name = document.getElementById('newName').value;
-	updatedExercise.reps = document.getElementById('newReps').value;
-	updatedExercise.weight = document.getElementById('newWeight').value;
-	updatedExercise.date = document.getElementById('newDate').value;
-	updatedExercise.lbs = document.getElementById('newLbs').value;
-	updatedExercise.id = document.getElementById('rowUpdateId').value;
+	updatedExercise.name = document.getElementById('newName' + rowId).value;
+	updatedExercise.reps = document.getElementById('newReps' + rowId).value;
+	updatedExercise.weight = document.getElementById('newWeight' + rowId).value;
+	updatedExercise.date = document.getElementById('newDate' + rowId).value;
+	updatedExercise.lbs = document.getElementById('newLbs' + rowId).value;
+	updatedExercise.id = document.getElementById('rowUpdateId' + rowId).value;
 
 	req.open('POST', 'http://52.88.225.102:3000/updateExercise', true);
 	req.setRequestHeader('Content-Type', 'application/json');
@@ -189,7 +191,7 @@ function submitRowUpdate(){
 	});
 	req.send(JSON.stringify(updatedExercise));
 
-	var formToRemove = document.getElementById('newUpdateForm');
+	var formToRemove = document.getElementById('newUpdateForm' + rowId);
 	var parentOfForm = formToRemove.parentNode;
 	parentOfForm.removeChild(formToRemove);
 
