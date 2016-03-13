@@ -214,9 +214,12 @@ function bindButtons(){
 	document.getElementById('addExercise').addEventListener('click', function(event){
 		if(document.getElementById('name').value == ""){
 			var statusElement = document.getElementById('statusP');
-			statusP.textContent = "Error: Cannot add exercise with empty name. Please enter a valid name.";
+			statusElement.textContent = "Error: Cannot add exercise with empty name. Please enter a valid name.";
 			event.preventDefault();
 			return;
+		} else {
+			var statusElement = document.getElementById('statusP');
+			statusElement.textContent = "";
 		}
 
 		var exercise = {name:null, reps:null, weight:null, date:null, lbs:null};
