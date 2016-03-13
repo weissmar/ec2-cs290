@@ -212,7 +212,12 @@ function submitRowUpdate(formSubmit){
 
 function bindButtons(){
 	document.getElementById('addExercise').addEventListener('click', function(event){
-		var req = new XMLHttpRequest();
+		if(document.getElementById('name').value == ""){
+			var statusElement = document.getElementById('statusP');
+			statusP.textContent = "Error: Cannot add exercise with empty name. Please enter a valid name.";
+			event.preventDefault();
+			return;
+		}
 
 		var exercise = {name:null, reps:null, weight:null, date:null, lbs:null};
 		exercise.name = document.getElementById('name').value;
@@ -220,6 +225,8 @@ function bindButtons(){
 		exercise.weight = document.getElementById('weight').value;
 		exercise.date = document.getElementById('date').value;
 		exercise.lbs = document.getElementById('lbs').value;
+
+		var req = new XMLHttpRequest();
 
 		req.open('POST', 'http://52.88.225.102:3000/addExercise', true);
 		req.setRequestHeader('Content-Type', 'application/json');
