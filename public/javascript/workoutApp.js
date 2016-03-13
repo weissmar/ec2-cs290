@@ -164,6 +164,7 @@ function deleteRow(tableId, currentRow){
 			table.removeChild(rowToRemove);
 
 			removeUpdateForm(rowId);
+			clearUpdateStatus();
 		} else {
 			console.log("Error in request: " + req.statusText);
 		}
@@ -180,17 +181,21 @@ function removeUpdateForm(rowId){
 	}
 }
 
+function clearUpdateStatus(){
+	var statusElement = document.getElementById('updateStatusP');
+	statusElement.textContent = "";
+}
+
 function submitRowUpdate(formSubmit){
 	var rowId = formSubmit.parentNode.lastElementChild.value;
 
 	if(document.getElementById('newName' + rowId).value == ""){
 		var statusElement = document.getElementById('updateStatusP');
-		statusElement.textContent = "Error: Cannot add exercise with empty name. Please enter a valid name.";
+		statusElement.textContent = "Error: Cannot update exercise with empty name. Please enter a valid name.";
 		event.preventDefault();
 		return;
 	} else {
-		var statusElement = document.getElementById('updateStatusP');
-		statusElement.textContent = "";
+		clearUpdateStatus();
 	}
 
 	var req = new XMLHttpRequest();
